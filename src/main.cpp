@@ -8,28 +8,24 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
-
 #include <ESPAsyncWebServer.h>
 
 #include "secrets.h" 
 
-
+//For demonstartion porpuses the controlled device is an RGB-LED
 #define RED_PIN D2
 #define GREEN_PIN D3
 #define BLUE_PIN D4
 
+//Values of the controlled device
 int red = 0;
 int green = 0;
 int blue = 0;
 
 
-
-
 AsyncWebServer server(80);
 
-
-
-String htmlPage = "<form action='get' method='get'><label for='red'>Red   </label><input type='text' id='red' name='red'><br><label for='green'>Green </label><input type='text' id='green' name='green'><br><label for='blue'>Blue  </label><input type='text' id='y' name='blue'><br><input type='submit' value='Submit'></form>";
+String htmlPage = "<form action='get' method='get'><label for='red'>Red</label><input type='text' id='red' name='red'><br><label for='green'>Green </label><input type='text' id='green' name='green'><br><label for='blue'>Blue  </label><input type='text' id='y' name='blue'><br><input type='submit' value='Submit'></form>";
 
 
 void notFound(AsyncWebServerRequest *request) {
@@ -63,7 +59,7 @@ void setup() {
             green = request->getParam("green")->value().toInt();
             blue = request->getParam("blue")->value().toInt();
         }
-        request->send(200, "text/html", htmlPage + "<p> current x: " + red + ", current y: " + green + ", current y: " + blue);
+        request->send(200, "text/html", htmlPage + "<p> current x: " + red + ", current y: " + green + ", current y: " + blue + "</p>");
     });
    
 
